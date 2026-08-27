@@ -1,0 +1,814 @@
+<title>Flota EKINYX</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap');
+
+  :root {
+    --paper: #FFFFFF;
+    --paper-2: #FAF8F4;
+    --ink: #201F1C;
+    --ink-soft: #706A5C;
+    --line: #E6E1D3;
+    --accent: #A9822F;
+    --accent-soft: #F3E9D2;
+    --accent-2: #7C838A;
+    --accent-2-soft: #EEF0F1;
+    --free: #2F7A52;
+    --free-bg: #E3F0E6;
+    --busy: #B23A2E;
+    --busy-bg: #F5E1DD;
+    --partial: #A9822F;
+    --partial-bg: #F3E9D2;
+    --transicion-bg: #FBEDA8;
+    --tax: #3D6E9E;
+    --tax-bg: #E3ECF3;
+    --shadow: 0 1px 2px rgba(32,31,28,.05), 0 8px 24px -12px rgba(32,31,28,.14);
+  }
+  /* Fondo blanco siempre, sin importar el tema del dispositivo (pedido explícito de Óscar) */
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Work Sans', system-ui, -apple-system, sans-serif;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.45;
+  }
+  h1, h2, h3, .eyebrow, .kpi-label, .cell-tag, .nav-label {
+    font-family: 'Barlow Condensed', 'Work Sans', system-ui, sans-serif;
+  }
+  a { color: var(--accent-2); }
+
+  .wrap { max-width: 1760px; width: 100%; margin: 0 auto; padding: 20px 28px 64px; box-sizing: border-box; }
+
+  /* ---------- Header ---------- */
+  .masthead {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 12px; flex-wrap: wrap;
+    padding-bottom: 18px; margin-bottom: 22px;
+    border-bottom: 2px solid var(--ink);
+  }
+  .brand { display: flex; align-items: baseline; gap: 10px; }
+  .brand-mark {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700; font-size: 30px; letter-spacing: .02em;
+    text-transform: uppercase;
+  }
+  .brand-mark span { color: var(--accent-2); }
+  .brand-sub {
+    font-size: 13px; color: var(--ink-soft); text-transform: uppercase;
+    letter-spacing: .08em; font-weight: 600;
+  }
+  .generated {
+    font-size: 13px; color: var(--ink-soft);
+    text-align: right;
+  }
+  .generated strong { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Section titles ---------- */
+  .section { margin-top: 40px; }
+  .section-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 12px; margin-bottom: 14px; flex-wrap: wrap;
+  }
+  .eyebrow {
+    text-transform: uppercase; letter-spacing: .1em; font-weight: 600;
+    font-size: 20px; color: var(--ink);
+  }
+  .section-note { font-size: 13px; color: var(--ink-soft); }
+
+  /* ---------- KPI cards ---------- */
+  .kpi-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+  }
+  .kpi-card {
+    background: var(--paper-2); border: 1px solid var(--line); border-top: 3px solid var(--line);
+    border-radius: 6px; padding: 14px 16px; display: flex; flex-direction: column; gap: 6px;
+    box-shadow: var(--shadow);
+  }
+  .kpi-label {
+    font-size: 14px; text-transform: uppercase; letter-spacing: .04em;
+    color: var(--ink-soft); font-weight: 500;
+  }
+  .kpi-value {
+    font-size: 24px; font-weight: 700; font-family: 'Work Sans', sans-serif;
+    letter-spacing: -.01em;
+  }
+  /* Verde = se queda EKINYX · Amarillo/oro = ingresa · Rojo = se distribuye a embajadores · Azul = IVA */
+  .kpi-card.income { border-top-color: var(--partial); }
+  .kpi-card.income .kpi-value { color: var(--partial); }
+  .kpi-card.tax { border-top-color: var(--tax); }
+  .kpi-card.tax .kpi-value { color: var(--tax); }
+  .kpi-card.distributed { border-top-color: var(--busy); }
+  .kpi-card.distributed .kpi-value { color: var(--busy); }
+  .kpi-card.kept { border-top-color: var(--free); }
+  .kpi-card.kept .kpi-value { color: var(--free); }
+  .kpi-card.neutral { border-top-color: var(--accent-2); }
+  .kpi-card.reserved { border-top: 3px dashed var(--busy); }
+  .kpi-card.reserved .kpi-value { color: var(--busy); opacity: .75; }
+  .kpi-card.primary { border-top-width: 4px; }
+  .kpi-card.primary.income { background: var(--partial-bg); }
+  .kpi-card.primary.tax { background: var(--tax-bg); }
+  .kpi-card.primary.distributed { background: var(--busy-bg); }
+  .kpi-card.primary.kept { background: var(--free-bg); }
+
+  /* ---------- Disponibilidad ---------- */
+  .avail-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--paper-2); box-shadow: var(--shadow); }
+  .avail-table { min-width: 920px; width: 100%; border-collapse: collapse; table-layout: fixed; }
+  .avail-table col.avail-veh-col { width: 220px; }
+  .avail-veh-h {
+    border-bottom: 1px solid var(--line); text-align: left; padding: 12px 14px;
+    font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: .06em;
+    font-size: 13px; color: var(--ink-soft); font-weight: 600;
+  }
+  .avail-day-h {
+    padding: 12px 8px; text-align: center; border-left: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    vertical-align: middle;
+  }
+  .avail-day-h .dow { display: block; font-size: 12.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); font-weight: 600; }
+  .avail-day-h .dom { display: block; font-size: 15px; font-weight: 700; }
+  .avail-table tbody tr { border-bottom: 1px solid var(--line); }
+  .avail-table tbody tr:last-child { border-bottom: none; }
+  .avail-veh { text-align: left; vertical-align: top; padding: 12px 14px; font-weight: 600; font-size: 15.5px; }
+  .avail-veh .swatch { display: inline-block; vertical-align: middle; margin-right: 9px; }
+  .avail-veh em { font-style: normal; color: var(--ink-soft); font-weight: 400; text-transform: lowercase; margin-left: 3px; }
+  .avail-veh-text { display: inline-flex; flex-direction: column; gap: 2px; vertical-align: middle; }
+  .veh-dias { font-size: 12px; font-weight: 500; color: var(--ink-soft); text-transform: none; }
+  .avail-cell {
+    border-left: 1px solid var(--line); text-align: center; vertical-align: middle;
+    padding: 10px 6px; height: 52px;
+  }
+  .cell-tag, .cell-who, .cell-precio { display: block; }
+  .cell-tag { font-size: 13px; font-weight: 700; padding: 3px 8px; border-radius: 999px; white-space: normal; margin: 0 auto 2px; width: fit-content; }
+  .avail-cell.is-libre .cell-tag { color: var(--free); background: var(--free-bg); }
+  .avail-cell.is-ocupado .cell-tag { color: var(--busy); background: var(--busy-bg); }
+  .avail-cell.is-entrega .cell-tag { color: var(--busy); background: var(--transicion-bg); }
+  .avail-cell.is-devolucion .cell-tag { color: var(--free); background: var(--transicion-bg); }
+  .cell-who { font-size: 12px; color: var(--ink-soft); font-weight: 600; }
+  .cell-precio { font-size: 12px; color: var(--accent); font-weight: 700; }
+
+  .legend { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-soft); }
+  .legend-dot { width: 9px; height: 9px; border-radius: 50%; }
+  .legend-dot.libre { background: var(--free); }
+  .legend-dot.ocupado { background: var(--busy); }
+  .legend-dot.entrega { background: var(--transicion-bg); border: 2px solid var(--busy); }
+  .legend-dot.devolucion { background: var(--transicion-bg); border: 2px solid var(--free); }
+
+  /* ---------- Swatch ---------- */
+  .swatch {
+    width: 13px; height: 13px; border-radius: 50%; background: var(--swatch, #999);
+    border: 1px solid var(--line); box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+    flex-shrink: 0;
+  }
+  .swatch.small { width: 10px; height: 10px; margin-right: 6px; }
+
+  /* ---------- Ranking table ---------- */
+  .ranking-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--paper-2); box-shadow: var(--shadow); }
+  table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  .rk-veh { display: flex; align-items: center; gap: 8px; padding: 12px; font-weight: 600; white-space: nowrap; }
+  .rk-veh em { font-style: normal; color: var(--ink-soft); font-weight: 400; text-transform: lowercase; margin-left: 3px; }
+  .rk-bar-cell { padding: 12px 10px; width: 30%; }
+  .rk-bar-track { background: var(--paper); border: 1px solid var(--line); border-radius: 999px; height: 8px; overflow: hidden; }
+  .rk-bar-fill { background: var(--accent); height: 100%; border-radius: 999px; }
+  table td, table th { padding: 12px; border-bottom: 1px solid var(--line); text-align: left; font-size: 14.5px; }
+  table tr:last-child td { border-bottom: none; }
+  table .num { text-align: right; font-weight: 600; white-space: nowrap; }
+  thead th {
+    font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: .05em;
+    font-size: 13px; color: var(--ink-soft); font-weight: 600; border-bottom: 1px solid var(--line);
+  }
+
+  /* ---------- Log / historial ---------- */
+  details.log { border: 1px solid var(--line); border-radius: 8px; background: var(--paper-2); box-shadow: var(--shadow); overflow: hidden; }
+  details.log > summary {
+    cursor: pointer; list-style: none; padding: 14px 16px; font-weight: 600;
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: .05em; font-size: 16px;
+  }
+  details.log > summary::-webkit-details-marker { display: none; }
+  details.log > summary::after {
+    content: '▾'; font-family: system-ui; transition: transform .15s ease; color: var(--ink-soft);
+  }
+  details.log[open] > summary::after { transform: rotate(180deg); }
+  .log-scroll { overflow-x: auto; border-top: 1px solid var(--line); }
+  .log-veh { display: flex; align-items: center; white-space: nowrap; }
+
+  .pill { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 12.5px; font-weight: 600; }
+  .st-done { color: var(--free); background: var(--free-bg); }
+  .st-active { color: var(--busy); background: var(--busy-bg); }
+  .st-upcoming { color: var(--partial); background: var(--partial-bg); }
+
+  .foot {
+    margin-top: 44px; padding-top: 16px; border-top: 1px solid var(--line);
+    font-size: 12.5px; color: var(--ink-soft); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+  }
+
+  @media (max-width: 980px) {
+    .kpi-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .wrap { padding: 16px 14px 48px; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .brand-mark { font-size: 24px; }
+    .generated { text-align: left; }
+    .avail-veh { padding: 8px; font-size: 13.5px; }
+    .avail-veh em { display: none; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="brand">
+      <span class="brand-mark">EKINYX <span>MOBILITY</span></span>
+    </div>
+    <div class="generated">Actualizado <strong>27/08/2026 · 18 contratos registrados · 2 en curso</strong></div>
+  </header>
+
+  <section class="section" id="ingresos">
+    <div class="section-head">
+      <span class="eyebrow">Ingresos</span>
+      <span class="section-note">Desglose de IVA y comisión de embajadores</span>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card income primary">
+      <span class="kpi-label">Total alquiler (IVA incl.)</span>
+      <span class="kpi-value">1.912,49 €</span>
+    </div>
+    <div class="kpi-card income">
+      <span class="kpi-label">Base imponible</span>
+      <span class="kpi-value">1.580,57 €</span>
+    </div>
+    <div class="kpi-card tax">
+      <span class="kpi-label">IVA (21%)</span>
+      <span class="kpi-value">331,92 €</span>
+    </div>
+    <div class="kpi-card distributed">
+      <span class="kpi-label">10% comisiones embajadores</span>
+      <span class="kpi-value">113,41 €</span>
+    </div>
+    <div class="kpi-card distributed">
+      <span class="kpi-label">60% comisión embajadores</span>
+      <span class="kpi-value">219,68 €</span>
+    </div>
+    <div class="kpi-card distributed">
+      <span class="kpi-label">Red asignada (nivel 2)</span>
+      <span class="kpi-value">25,01 €</span>
+    </div>
+    <div class="kpi-card kept">
+      <span class="kpi-label">Red sin distribuir (niveles 3-10)</span>
+      <span class="kpi-value">27,08 €</span>
+    </div>
+    <div class="kpi-card distributed primary">
+      <span class="kpi-label">Total comisiones embajadores</span>
+      <span class="kpi-value">358,10 €</span>
+    </div>
+    <div class="kpi-card kept">
+      <span class="kpi-label">EKINYX · parte del precio base</span>
+      <span class="kpi-value">1.136,97 €</span>
+    </div>
+    <div class="kpi-card kept">
+      <span class="kpi-label">EKINYX · parte del extra</span>
+      <span class="kpi-value">41,98 €</span>
+    </div>
+    <div class="kpi-card kept">
+      <span class="kpi-label">EKINYX · extras no comisionables</span>
+      <span class="kpi-value">16,44 €</span>
+    </div>
+    <div class="kpi-card kept primary">
+      <span class="kpi-label">Neto EKINYX</span>
+      <span class="kpi-value">1.222,47 €</span>
+    </div>
+    <div class="kpi-card neutral">
+      <span class="kpi-label">Fianzas en depósito</span>
+      <span class="kpi-value">3.500,00 €</span>
+    </div>
+    </div>
+  </section>
+
+  <section class="section" id="disponibilidad">
+    <div class="section-head">
+      <span class="eyebrow">Disponibilidad</span>
+      <span class="section-note">Próximos 7 días</span>
+    </div>
+    <div class="avail-scroll">
+      <table class="avail-table">
+        <colgroup>
+          <col class="avail-veh-col">
+          <col><col><col><col><col><col><col>
+        </colgroup>
+        <thead>
+          <tr><th class="avail-veh-h">Flota</th><th class="avail-day-h"><span class="dow">jue</span><span class="dom">27 ago</span></th><th class="avail-day-h"><span class="dow">vie</span><span class="dom">28 ago</span></th><th class="avail-day-h"><span class="dow">sáb</span><span class="dom">29 ago</span></th><th class="avail-day-h"><span class="dow">dom</span><span class="dom">30 ago</span></th><th class="avail-day-h"><span class="dow">lun</span><span class="dom">31 ago</span></th><th class="avail-day-h"><span class="dow">mar</span><span class="dom">1 sep</span></th><th class="avail-day-h"><span class="dow">mié</span><span class="dom">2 sep</span></th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="avail-veh"><span class="swatch" style="--swatch:#2B2B2F"></span><div class="avail-veh-text"><span>Peugeot 208 <em>negro</em></span><span class="veh-dias">11 días alquilados</span></div></td>
+          <td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-entrega" title="Entrega 13:00 · Angela San Vicente Carreño"><span class="cell-tag">Entrega 13:00</span><span class="cell-who">Juan Villa</span><span class="cell-precio">35,00 €/día</span></td><td class="avail-cell is-ocupado" title="Angela San Vicente Carreño"><span class="cell-tag">Ocupado</span><span class="cell-who">Juan Villa</span><span class="cell-precio">35,00 €/día</span></td><td class="avail-cell is-ocupado" title="Angela San Vicente Carreño"><span class="cell-tag">Ocupado</span><span class="cell-who">Juan Villa</span><span class="cell-precio">35,00 €/día</span></td><td class="avail-cell is-ocupado" title="Angela San Vicente Carreño"><span class="cell-tag">Ocupado</span><span class="cell-who">Juan Villa</span><span class="cell-precio">35,00 €/día</span></td><td class="avail-cell is-devolucion" title="Devolución 13:00 · Angela San Vicente Carreño"><span class="cell-tag">Devolución 13:00</span><span class="cell-who">Juan Villa</span><span class="cell-precio">35,00 €/día</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td>
+        </tr>
+        <tr>
+          <td class="avail-veh"><span class="swatch" style="--swatch:#F4F1E9"></span><div class="avail-veh-text"><span>Opel Corsa <em>blanco</em></span><span class="veh-dias">7 días alquilados</span></div></td>
+          <td class="avail-cell is-devolucion" title="Devolución 21:30 · Martha Noemi Tapia Flores"><span class="cell-tag">Devolución 21:30</span><span class="cell-who">Autoalquiler · Martha Noemi Tapia Flores</span><span class="cell-precio">27,00 €/día</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td>
+        </tr>
+        <tr>
+          <td class="avail-veh"><span class="swatch" style="--swatch:#8B8D93"></span><div class="avail-veh-text"><span>Opel Combo <em>gris</em></span><span class="veh-dias">6 días alquilados</span></div></td>
+          <td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td>
+        </tr>
+        <tr>
+          <td class="avail-veh"><span class="swatch" style="--swatch:#F4F1E9"></span><div class="avail-veh-text"><span>Citroën C1 <em>blanco</em></span><span class="veh-dias">3 días alquilados</span></div></td>
+          <td class="avail-cell is-entrega" title="Entrega 08:00 · Amanda Patricia Garcia Lopez"><span class="cell-tag">Entrega 08:00</span><span class="cell-who">Oscar Paulino</span><span class="cell-precio">22,00 €/día</span></td><td class="avail-cell is-ocupado" title="Amanda Patricia Garcia Lopez"><span class="cell-tag">Ocupado</span><span class="cell-who">Oscar Paulino</span><span class="cell-precio">22,00 €/día</span></td><td class="avail-cell is-devolucion" title="Devolución 21:30 · Amanda Patricia Garcia Lopez"><span class="cell-tag">Devolución 21:30</span><span class="cell-who">Oscar Paulino</span><span class="cell-precio">22,00 €/día</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td>
+        </tr>
+        <tr>
+          <td class="avail-veh"><span class="swatch" style="--swatch:#B23A2E"></span><div class="avail-veh-text"><span>Opel Astra <em>rojo</em></span><span class="veh-dias">7 días alquilados</span></div></td>
+          <td class="avail-cell is-ocupado" title="Stéphanie Denise Mauricette Demetz (Épouse El Mir)"><span class="cell-tag">Ocupado</span><span class="cell-who">Liubov Klochko</span><span class="cell-precio">55,00 €/día</span></td><td class="avail-cell is-ocupado" title="Stéphanie Denise Mauricette Demetz (Épouse El Mir)"><span class="cell-tag">Ocupado</span><span class="cell-who">Liubov Klochko</span><span class="cell-precio">55,00 €/día</span></td><td class="avail-cell is-ocupado" title="Stéphanie Denise Mauricette Demetz (Épouse El Mir)"><span class="cell-tag">Ocupado</span><span class="cell-who">Liubov Klochko</span><span class="cell-precio">55,00 €/día</span></td><td class="avail-cell is-ocupado" title="Stéphanie Denise Mauricette Demetz (Épouse El Mir)"><span class="cell-tag">Ocupado</span><span class="cell-who">Liubov Klochko</span><span class="cell-precio">55,00 €/día</span></td><td class="avail-cell is-devolucion" title="Devolución 14:00 · Stéphanie Denise Mauricette Demetz (Épouse El Mir)"><span class="cell-tag">Devolución 14:00</span><span class="cell-who">Liubov Klochko</span><span class="cell-precio">55,00 €/día</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td>
+        </tr>
+        <tr>
+          <td class="avail-veh"><span class="swatch" style="--swatch:#2B2B2F"></span><div class="avail-veh-text"><span>Citroën C4 Picasso <em>negro</em></span><span class="veh-dias">7 días alquilados</span></div></td>
+          <td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-entrega" title="Entrega 19:30 · Sebastian Hurtado Barona"><span class="cell-tag">Entrega 19:30</span><span class="cell-who">Liubov Klochko</span><span class="cell-precio">60,00 €/día</span></td><td class="avail-cell is-ocupado" title="Sebastian Hurtado Barona"><span class="cell-tag">Ocupado</span><span class="cell-who">Liubov Klochko</span><span class="cell-precio">60,00 €/día</span></td><td class="avail-cell is-devolucion" title="Devolución 19:00 · Sebastian Hurtado Barona"><span class="cell-tag">Devolución 19:00</span><span class="cell-who">Liubov Klochko</span><span class="cell-precio">60,00 €/día</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td>
+        </tr>
+        <tr>
+          <td class="avail-veh"><span class="swatch" style="--swatch:#EFBB2B"></span><div class="avail-veh-text"><span>Peugeot 208 <em>amarillo</em></span><span class="veh-dias">2 días alquilados</span></div></td>
+          <td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td><td class="avail-cell is-libre"><span class="cell-tag">Libre</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="legend">
+      <span class="legend-item"><span class="legend-dot libre"></span> Libre</span>
+      <span class="legend-item"><span class="legend-dot ocupado"></span> Ocupado</span>
+      <span class="legend-item"><span class="legend-dot entrega"></span> Entrega ese día</span>
+      <span class="legend-item"><span class="legend-dot devolucion"></span> Devolución ese día</span>
+    </div>
+  </section>
+
+  <section class="section" id="ranking">
+    <div class="section-head">
+      <span class="eyebrow">Ranking por coche</span>
+      <span class="section-note">Ingreso neto · mayor a menor</span>
+    </div>
+    <div class="ranking-wrap">
+      <table>
+        <thead>
+          <tr><th>Vehículo</th><th></th><th class="num">Ingreso</th><th class="num">Días</th><th class="num">Contratos</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="rk-veh">
+            <span class="swatch" style="--swatch:#2B2B2F"></span>
+            <span>Peugeot 208 <em>negro</em></span>
+          </td>
+          <td class="rk-bar-cell">
+            <div class="rk-bar-track"><div class="rk-bar-fill" style="width:100.0%"></div></div>
+          </td>
+          <td class="num">495,00 €</td>
+          <td class="num">11</td>
+          <td class="num">3</td>
+        </tr>
+        <tr>
+          <td class="rk-veh">
+            <span class="swatch" style="--swatch:#2B2B2F"></span>
+            <span>Citroën C4 Picasso <em>negro</em></span>
+          </td>
+          <td class="rk-bar-cell">
+            <div class="rk-bar-track"><div class="rk-bar-fill" style="width:84.8%"></div></div>
+          </td>
+          <td class="num">420,00 €</td>
+          <td class="num">7</td>
+          <td class="num">4</td>
+        </tr>
+        <tr>
+          <td class="rk-veh">
+            <span class="swatch" style="--swatch:#B23A2E"></span>
+            <span>Opel Astra <em>rojo</em></span>
+          </td>
+          <td class="rk-bar-cell">
+            <div class="rk-bar-track"><div class="rk-bar-fill" style="width:73.7%"></div></div>
+          </td>
+          <td class="num">365,00 €</td>
+          <td class="num">7</td>
+          <td class="num">2</td>
+        </tr>
+        <tr>
+          <td class="rk-veh">
+            <span class="swatch" style="--swatch:#8B8D93"></span>
+            <span>Opel Combo <em>gris</em></span>
+          </td>
+          <td class="rk-bar-cell">
+            <div class="rk-bar-track"><div class="rk-bar-fill" style="width:51.0%"></div></div>
+          </td>
+          <td class="num">252,60 €</td>
+          <td class="num">6</td>
+          <td class="num">2</td>
+        </tr>
+        <tr>
+          <td class="rk-veh">
+            <span class="swatch" style="--swatch:#F4F1E9"></span>
+            <span>Opel Corsa <em>blanco</em></span>
+          </td>
+          <td class="rk-bar-cell">
+            <div class="rk-bar-track"><div class="rk-bar-fill" style="width:44.8%"></div></div>
+          </td>
+          <td class="num">222,00 €</td>
+          <td class="num">7</td>
+          <td class="num">4</td>
+        </tr>
+        <tr>
+          <td class="rk-veh">
+            <span class="swatch" style="--swatch:#EFBB2B"></span>
+            <span>Peugeot 208 <em>amarillo</em></span>
+          </td>
+          <td class="rk-bar-cell">
+            <div class="rk-bar-track"><div class="rk-bar-fill" style="width:18.6%"></div></div>
+          </td>
+          <td class="num">91,89 €</td>
+          <td class="num">2</td>
+          <td class="num">1</td>
+        </tr>
+        <tr>
+          <td class="rk-veh">
+            <span class="swatch" style="--swatch:#F4F1E9"></span>
+            <span>Citroën C1 <em>blanco</em></span>
+          </td>
+          <td class="rk-bar-cell">
+            <div class="rk-bar-track"><div class="rk-bar-fill" style="width:13.3%"></div></div>
+          </td>
+          <td class="num">66,00 €</td>
+          <td class="num">3</td>
+          <td class="num">2</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="embajadores">
+    <div class="section-head">
+      <span class="eyebrow">Comisiones por embajador</span>
+      <span class="section-note">Modelo 10-60 + red nivel 2 (2,0039%) · niveles 3-10 sin definir</span>
+    </div>
+    <div class="ranking-wrap">
+      <table>
+        <thead>
+          <tr><th>Embajador</th><th class="num">Contratos</th><th class="num">10% base</th><th class="num">60% margen</th><th class="num">Red 2,0039%<br>(nivel 2)</th><th class="num">Total</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Liubov Klochko</td>
+          <td class="num">13</td>
+          <td class="num">96,38 €</td>
+          <td class="num">219,68 €</td>
+          <td class="num">0,00 €</td>
+          <td class="num"><strong>316,06 €</strong></td>
+        </tr>
+        <tr>
+          <td>Oscar Paulino</td>
+          <td class="num">2</td>
+          <td class="num">5,46 €</td>
+          <td class="num">0,00 €</td>
+          <td class="num">25,01 €</td>
+          <td class="num"><strong>30,47 €</strong></td>
+        </tr>
+        <tr>
+          <td>Juan Villa</td>
+          <td class="num">1</td>
+          <td class="num">11,57 €</td>
+          <td class="num">0,00 €</td>
+          <td class="num">0,00 €</td>
+          <td class="num"><strong>11,57 €</strong></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="historial">
+    <div class="section-head">
+      <span class="eyebrow">Historial</span>
+    </div>
+    <details class="log">
+      <summary>Ver los contratos, en orden de entrega</summary>
+      <div class="log-scroll">
+        <table>
+          <thead>
+            <tr><th class="num">Nº</th><th>Arrendatario</th><th>Vehículo</th><th>Entrega</th><th>Devolución</th><th class="num">Días</th><th class="num">Ingreso</th><th class="num">IVA</th><th class="num">10% base</th><th class="num">60% margen</th><th class="num">Red asignada</th><th class="num">Red sin distribuir</th><th class="num">EKINYX</th><th>Embajador</th><th>Estado</th></tr>
+          </thead>
+          <tbody>
+          <tr>
+          <td class="num">1</td>
+          <td>Jeremias Zavala Lugo</td>
+          <td class="log-veh"><span class="swatch small" style="--swatch:#2B2B2F"></span>Peugeot 208</td>
+          <td>04/08 20:00</td>
+          <td>05/08 20:00</td>
+          <td class="num">1</td>
+          <td class="num">25,00 €</td>
+          <td class="num">4,34 €</td>
+          <td class="num">2,89 €</td>
+          <td class="num">0,00 €</td>
+          <td class="num">0,58 €</td>
+          <td class="num">0,58 €</td>
+          <td class="num"><strong>17,20 €</strong></td>
+          <td>Liubov Klochko</td>
+          <td><span class="pill st-done">Realizado</span></td>
+        </tr>
+        <tr>
+          <td class="num">2</td>
+          <td>Sabri Ait Sadok Mezian</td>
+          <td class="log-veh"><span class="swatch small" style="--swatch:#2B2B2F"></span>Peugeot 208</td>
+          <td>12/08 20:00</td>
+          <td>18/08 20:00</td>
+          <td class="num">6</td>
+          <td class="num">330,00 €</td>
+          <td class="num">57,27 €</td>
+          <td class="num">17,36 €</td>
+          <td class="num">59,50 €</td>
+          <td class="num">3,48 €</td>
+          <td class="num">3,46 €</td>
+          <td class="num"><strong>192,38 €</strong></td>
+          <td>Liubov Klochko</td>
+          <td><span class="pill st-done">Realizado</span></td>
+        </tr>
+        <tr>
+          <td class="num">3</td>
+          <td>Jose Vicente Teca Alcuacer</td>
+          <td class="log-veh"><span class="swatch small" style="--swatch:#EFBB2B"></span>Peugeot 208</td>
+          <td>14/08 17:00</td>
+          <td>16/08 17:00</td>
+          <td class="num">2</td>
+          <td class="num">91,89 €</td>
+          <td class="num">15,62 €</td>
+          <td class="num">5,79 €</td>
+          <td class="num">9,92 €</td>
+          <td class="num">1,16 €</td>
+          <td class="num">1,15 €</td>
+          <td class="num"><strong>57,51 €</strong></td>
+          <td>Liubov Klochko</td>
+          <td><span class="pill st-done">Realizado</span></td>
+        </tr>
+        <tr>
+          <td class="num">4</td>
+          <td>Antony Alfonso Salazar Marquez</td>
+          <td class="log-veh"><span class="swatch small" style="--swatch:#F4F1E9"></span>Opel Corsa</td>
+          <td>15/08 21:30</td>
+          <td>16/08 23:59</td>
+          <td class="num">1</td>
+          <td class="num">45,00 €</td>
+          <td class="num">7,81 €</td>
+          <td class="num">2,48 €</td>
+          <td class="num">7,44 €</td>
+          <td class="num">0,50 €</td>
+          <td class="num">0,49 €</td>
+          <td class="num"><strong>26,77 €</strong></td>
+          <td>Liubov Klochko</td>
+          <td><span class="pill st-done">Realizado</span></td>
+        </tr>
+        <tr>
+          <td class="num">5</td>
+          <td>Amanda Patricia Garcia Lopez</td>
+          <td class="log-veh"><span class="swatch small" style="--swatch:#F4F1E9"></span>Citroën C1</td>
+          <td>16/08 08:00</td>
+          <td>17/08 08:00</td>
+          <td class="num">1</td>
+          <td class="num">22,00 €</td>
+          <td class="num">3,82 €</td>
+          <td class="num">1,82 €</td>
+          <td class="num">0,00 €</td>
+          <td class="num">0,00 €</td>
+          <td class="num">0,73 €</td>
+          <td class="num"><strong>16,36 €</strong></td>
+          <td>Oscar Paulino</td>
+          <td><span class="pill st-done">Realizado</span></td>
+        </tr>
+        <tr>
+          <td class="num">6</td>
+          <td>Yiunes Finlay Galindo Cordoba</td>
+          <td class="log-veh"><span class="swatch small" style="--swatch:#2B2B2F"></span>Citroën C4 Picasso</td>
+          <td>18/08 08:30</td>
+          <td>18/08 19:00</td>
+          <td class="num">1</td>
+          <td class="num">60,00 €</td>
+          <td class="num">10,41 €</td>
+          <td class="num">2,89 €</td>
+          <td class="num">12,40 €</td>
+          <td class="num">0,58 €</td>
+          <td class="num">0,58 €</td>
+          <td class="num"><strong>33,72 €</strong></td>
+          <td>Liubov Klochko</td>
+          <td><span class="pill st-done">Realizado</span></td>
+        </tr>
+        <tr>
+          <td class="num">7</td>
+          <td>Jorge Luis Gonzalez Espitia</td>
+          <td class="log-veh"><span class="swatch small" style="--swatch:#2B2B2F"></span>Citroën C4 Picasso</td>
+          <td>19/08 07:30</td>
+          <td>19/08 20:00</td>
+          <td class="num">1</td>
+          <td class="num">60,00 €</td>
+          <td class="num">10,41 €</td>
+          <td class="num">2,89 €</td>
+          <td class="num">12,40 €</td>
+          <td class="num">0,58 €</td>
+          <td class="num">0,58 €</td>
+          <td class="num"><strong>33,72 €</strong></td>
+          <td>Liubov Klochko</td>
+          <td><span class="pill st-done">Realizado</span></td>
+        </tr>
+        <tr>
+          <td class="num">8</td>
+          <td>Juan Manuel Villa Gil</td>
+          <td class="log-veh"><span class="swatch small" style="--swatch:#8B8D93"></span>Opel Combo</td>
+          <td>19/08 07:30</td>
+          <td>21/08 20:00</td>
+          <td class="num">3</td>
+          <td class="num">129,60 €</td>
+          <td class="num">22,49 €</td>
+          <td class="num">0,00 €</td>
+          <td class="num">0,00 €</td>
+          <td class="num">2,88 €</td>
+          <td class="num">2,87 €</td>
+          <td class="num"><strong>104,23 €</strong></td>
+          <td>Autoalquiler · Juan Villa</td>
+          <td><span class="pill st-done">Realizado</span></td>
+        </tr>
+        <tr>
+          <td class="num">9</td>
+          <td>Harvinder Singh Kaur</td>
+          <td class="log-veh"><span class="swatch small" style="--swatch:#2B2B2F"></span>Citroën C4 Picasso</td>
+          <td>21/08 07:00</td>
+          <td>23/08 23:59</td>
+          <td class="num">3</td>
+          <td class="num">180,00 €</td>
+          <td class="num">31,24 €</td>
+          <td class="num">8,68 €</td>
+          <td class="num">37,19 €</td>
+          <td class="num">1,74 €</td>
+          <td class="num">1,73 €</td>
+          <td class="num"><strong>101,15 €</strong></td>
+          <td>Liubov Klochko</td>
+          <td><span class="pill st-done">Realizado</span></td>
+        </tr>
+        <tr>
+          <td class="num">13</td>
+          <td>Jorge Luis Gonzalez Espitia</td>
+          <td class="log-veh"><span class="swatch small" style="--swatch:#F4F1E9"></span>Opel Corsa</td>
+          <td>21/08 11:30</td>
+          <td>23/08 20:00</td>
+          <td class="num">3</td>
+          <td class="num">90,00 €</td>
+          <td class="num">15,62 €</td>
+          <td class="num">7,44 €</td>
+          <td class="num">0,00 €</td>
+          <td class="num">1,49 €</td>
+          <td class="num">1,49 €</td>
+          <td class="num"><strong>65,45 €</strong></td>
+          <td>Liubov Klochko</td>
+          <td><span class="pill st-done">Realizado</span></td>
+        </tr>
+        <tr>
+          <td class="num">10</td>
+          <td>Jorge Luis Quiñonez Sayago + Sthefanny Gabriela Camargo Mora</td>
+          <td class="log-veh"><span class="swatch small" style="--swatch:#B23A2E"></span>Opel Astra</td>
+          <td>21/08 20:00</td>
+          <td>23/08 22:00</td>
+          <td class="num">2</td>
+          <td class="num">90,00 €</td>
+          <td class="num">15,62 €</td>
+          <td class="num">5,95 €</td>
+          <td class="num">8,93 €</td>
+          <td class="num">1,19 €</td>
+          <td class="num">1,19 €</td>
+          <td class="num"><strong>58,31 €</strong></td>
+          <td>Liubov Klochko</td>
+          <td><span class="pill st-done">Realizado</span></td>
+        </tr>
+        <tr>
+          <td class="num">11</td>
+          <td>Jose Miguel Tejedor Herranz</td>
+          <td class="log-veh"><span class="swatch small" style="--swatch:#8B8D93"></span>Opel Combo</td>
+          <td>23/08 09:00</td>
+          <td>26/08 21:00</td>
+          <td class="num">3</td>
+          <td class="num">123,00 €</td>
+          <td class="num">18,22 €</td>
+          <td class="num">14,38 €</td>
+          <td class="num">0,00 €</td>
+          <td class="num">2,88 €</td>
+          <td class="num">2,87 €</td>
+          <td class="num"><strong>69,52 €</strong></td>
+          <td>Liubov Klochko</td>
+          <td><span class="pill st-done">Realizado</span></td>
+        </tr>
+        <tr>
+          <td class="num">14</td>
+          <td>Jorge Luis Gonzalez Espitia</td>
+          <td class="log-veh"><span class="swatch small" style="--swatch:#F4F1E9"></span>Opel Corsa</td>
+          <td>23/08 21:15</td>
+          <td>25/08 20:00</td>
+          <td class="num">2</td>
+          <td class="num">60,00 €</td>
+          <td class="num">10,41 €</td>
+          <td class="num">4,96 €</td>
+          <td class="num">0,00 €</td>
+          <td class="num">0,99 €</td>
+          <td class="num">0,99 €</td>
+          <td class="num"><strong>43,64 €</strong></td>
+          <td>Liubov Klochko</td>
+          <td><span class="pill st-done">Realizado</span></td>
+        </tr>
+        <tr>
+          <td class="num">12</td>
+          <td>Stéphanie Denise Mauricette Demetz (Épouse El Mir)</td>
+          <td class="log-veh"><span class="swatch small" style="--swatch:#B23A2E"></span>Opel Astra</td>
+          <td>26/08 17:30</td>
+          <td>31/08 14:00</td>
+          <td class="num">5</td>
+          <td class="num">275,00 €</td>
+          <td class="num">47,73 €</td>
+          <td class="num">14,88 €</td>
+          <td class="num">47,11 €</td>
+          <td class="num">2,98 €</td>
+          <td class="num">2,97 €</td>
+          <td class="num"><strong>162,30 €</strong></td>
+          <td>Liubov Klochko</td>
+          <td><span class="pill st-active">En curso</span></td>
+        </tr>
+        <tr>
+          <td class="num">15</td>
+          <td>Martha Noemi Tapia Flores</td>
+          <td class="log-veh"><span class="swatch small" style="--swatch:#F4F1E9"></span>Opel Corsa</td>
+          <td>26/08 21:30</td>
+          <td>27/08 21:30</td>
+          <td class="num">1</td>
+          <td class="num">27,00 €</td>
+          <td class="num">4,69 €</td>
+          <td class="num">0,00 €</td>
+          <td class="num">0,00 €</td>
+          <td class="num">0,50 €</td>
+          <td class="num">0,49 €</td>
+          <td class="num"><strong>21,81 €</strong></td>
+          <td>Autoalquiler · Martha Noemi Tapia Flores</td>
+          <td><span class="pill st-done">Realizado</span></td>
+        </tr>
+        <tr>
+          <td class="num">17</td>
+          <td>Amanda Patricia Garcia Lopez</td>
+          <td class="log-veh"><span class="swatch small" style="--swatch:#F4F1E9"></span>Citroën C1</td>
+          <td>27/08 08:00</td>
+          <td>29/08 21:30</td>
+          <td class="num">2</td>
+          <td class="num">44,00 €</td>
+          <td class="num">7,64 €</td>
+          <td class="num">3,64 €</td>
+          <td class="num">0,00 €</td>
+          <td class="num">0,00 €</td>
+          <td class="num">1,45 €</td>
+          <td class="num"><strong>32,72 €</strong></td>
+          <td>Oscar Paulino</td>
+          <td><span class="pill st-active">En curso</span></td>
+        </tr>
+        <tr>
+          <td class="num">16</td>
+          <td>Angela San Vicente Carreño</td>
+          <td class="log-veh"><span class="swatch small" style="--swatch:#2B2B2F"></span>Peugeot 208</td>
+          <td>28/08 13:00</td>
+          <td>01/09 13:00</td>
+          <td class="num">4</td>
+          <td class="num">140,00 €</td>
+          <td class="num">24,30 €</td>
+          <td class="num">11,57 €</td>
+          <td class="num">0,00 €</td>
+          <td class="num">2,32 €</td>
+          <td class="num">2,31 €</td>
+          <td class="num"><strong>101,81 €</strong></td>
+          <td>Juan Villa</td>
+          <td><span class="pill st-upcoming">Próximo</span></td>
+        </tr>
+        <tr>
+          <td class="num">18</td>
+          <td>Sebastian Hurtado Barona</td>
+          <td class="log-veh"><span class="swatch small" style="--swatch:#2B2B2F"></span>Citroën C4 Picasso</td>
+          <td>28/08 19:30</td>
+          <td>30/08 19:00</td>
+          <td class="num">2</td>
+          <td class="num">120,00 €</td>
+          <td class="num">20,83 €</td>
+          <td class="num">5,79 €</td>
+          <td class="num">24,79 €</td>
+          <td class="num">1,16 €</td>
+          <td class="num">1,15 €</td>
+          <td class="num"><strong>67,43 €</strong></td>
+          <td>Liubov Klochko</td>
+          <td><span class="pill st-upcoming">Próximo</span></td>
+        </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </section>
+
+  <div class="foot">
+    <span>Registro maestro: Drive · EKINYX_MOBILITY_SL / Contratos de Alquiler</span>
+    <span>Panel regenerado tras cada contrato nuevo o corrección</span>
+  </div>
+
+</div>
