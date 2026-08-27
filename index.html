@@ -230,6 +230,7 @@
   .rk-bar-cell { padding: 12px 10px; width: 30%; }
   .rk-bar-track { background: var(--paper); border: 1px solid var(--line); border-radius: 999px; height: 8px; overflow: hidden; }
   .rk-bar-fill { background: var(--accent); height: 100%; border-radius: 999px; }
+  .rk-bar-fill.veh-color { background: var(--swatch, var(--accent)); box-shadow: inset 0 0 0 1px rgba(0,0,0,.12); }
   table td, table th { padding: 12px; border-bottom: 1px solid var(--line); text-align: left; font-size: 14.5px; }
   table tr:last-child td { border-bottom: none; }
   table .num { text-align: right; font-weight: 600; white-space: nowrap; }
@@ -258,6 +259,64 @@
   .st-active { color: var(--busy); background: var(--busy-bg); }
   .st-upcoming { color: var(--partial); background: var(--partial-bg); }
 
+  /* ---------- Alerta de cuota ---------- */
+  .alerta-cuota {
+    margin-top: 18px; padding: 14px 18px; border: 1px solid var(--busy); border-left-width: 4px;
+    border-radius: 8px; background: var(--busy-bg);
+  }
+  .alerta-title { font-weight: 700; color: var(--busy); font-size: 14.5px; }
+  .alerta-cuota ul { margin: 8px 0 0; padding-left: 20px; font-size: 13.5px; color: var(--ink); }
+  .alerta-cuota li { margin-bottom: 2px; }
+  .alerta-cuota em { font-style: normal; text-transform: lowercase; color: var(--ink-soft); }
+
+  /* ---------- Banner "Hoy" ---------- */
+  .hoy-banner {
+    margin-bottom: 14px; padding: 12px 16px; border: 1px solid var(--line); border-left: 4px solid var(--accent);
+    border-radius: 8px; background: var(--paper-2);
+  }
+  .hoy-title {
+    font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: .06em;
+    font-weight: 700; font-size: 13px; color: var(--accent);
+  }
+  .hoy-banner ul { margin: 6px 0 0; padding-left: 20px; font-size: 13.5px; }
+  .hoy-banner li { margin-bottom: 2px; }
+  .hoy-empty { margin: 4px 0 0; font-size: 13.5px; color: var(--ink-soft); }
+
+  /* ---------- Barra hero (recuperación de flota) ---------- */
+  .hero-flota { margin-bottom: 14px; }
+  .hero-flota-text { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; flex-wrap: wrap; gap: 6px; }
+  .hero-flota-label { font-size: 13.5px; color: var(--ink-soft); font-weight: 600; }
+  .hero-flota-value { font-size: 20px; font-weight: 700; color: var(--accent); font-family: 'Work Sans', sans-serif; }
+  .hero-flota-track { height: 14px; }
+  .hero-flota-track .rk-bar-fill { background: var(--accent); }
+
+  /* ---------- Calendario mensual de ocupación ---------- */
+  .cal-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; background: var(--paper-2); box-shadow: var(--shadow); }
+  .cal-table { border-collapse: collapse; width: 100%; min-width: 1200px; table-layout: fixed; }
+  .cal-veh-h {
+    width: 170px; text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--line);
+    font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; letter-spacing: .06em;
+    font-size: 12px; color: var(--ink-soft); font-weight: 600;
+  }
+  .cal-veh {
+    width: 170px; text-align: left; padding: 6px 12px; font-weight: 600; font-size: 13px;
+    white-space: nowrap; border-bottom: 1px solid var(--line);
+  }
+  .cal-veh .swatch { display: inline-block; vertical-align: middle; margin-right: 6px; }
+  .cal-day-h {
+    padding: 6px 1px; text-align: center; font-size: 10.5px; color: var(--ink-soft); font-weight: 600;
+    border-left: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  }
+  .cal-day-h.cal-weekend { background: var(--accent-soft); color: var(--ink); }
+  .cal-cell {
+    border-left: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    text-align: center; vertical-align: middle; height: 32px; padding: 1px;
+  }
+  .cal-cell.cal-libre { background: var(--paper); }
+  .cal-cell.cal-pasado { background: var(--paper); color: var(--ink-faint); font-size: 10.5px; }
+  .cal-cell.cal-ocupado { background: var(--swatch); }
+  .cal-precio { font-size: 9.5px; font-weight: 700; color: var(--swatch-text, var(--ink)); display: block; }
+
   .foot {
     margin-top: 44px; padding-top: 16px; border-top: 1px solid var(--line);
     font-size: 12.5px; color: var(--ink-soft); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;
@@ -284,6 +343,11 @@
     </div>
     <div class="generated">Actualizado <strong>27/08/2026 · 18 contratos registrados · 2 en curso</strong></div>
   </header>
+
+  <div class="alerta-cuota">
+      <span class="alerta-title">⚠ 4 coches no cubren su cuota de financiación este mes</span>
+      <ul><li>Opel Corsa <em>blanco</em> — cobertura 66,2 % de su cuota</li><li>Opel Combo <em>gris</em> — cobertura 78,3 % de su cuota</li><li>Citroën C1 <em>blanco</em> — cobertura 34,8 % de su cuota</li><li>Peugeot 208 <em>amarillo</em> — cobertura 31,5 % de su cuota</li></ul>
+    </div>
 
   <section class="section" id="ingresos">
     <div class="section-head">
@@ -360,6 +424,14 @@
       <span class="kpi-label">Fianza en efectivo sin depositar</span>
       <span class="kpi-value">300,00 €</span>
     </div>
+    <div class="kpi-card reserved">
+      <span class="kpi-label">Contratos por debajo de tarifa</span>
+      <span class="kpi-value">4</span>
+    </div>
+    <div class="kpi-card kept">
+      <span class="kpi-label">Clientes recurrentes</span>
+      <span class="kpi-value">1</span>
+    </div>
     </div>
   </section>
 
@@ -368,6 +440,7 @@
       <span class="eyebrow">Disponibilidad</span>
       <span class="section-note">Próximos 7 días</span>
     </div>
+    <div class="hoy-banner"><span class="hoy-title">Hoy</span><ul><li><strong>Devolución 21:30</strong> · Opel Corsa · Martha Noemi Tapia Flores</li><li><strong>Entrega 08:00</strong> · Citroën C1 · Amanda Patricia Garcia Lopez</li><li>Ocupado todo el día · Opel Astra · Stéphanie Denise Mauricette Demetz (Épouse El Mir)</li></ul></div>
     <div class="avail-scroll">
       <table class="avail-table">
         <colgroup>
@@ -417,6 +490,50 @@
     </div>
   </section>
 
+  <section class="section" id="calendario-mes">
+    <div class="section-head">
+      <span class="eyebrow">Calendario mensual de ocupación</span>
+      <span class="section-note">Cada celda ocupada, coloreada del color real del coche · precio de ese día dentro</span>
+    </div>
+    <div class="cal-scroll">
+      <table class="cal-table">
+        <thead>
+          <tr><th class="cal-veh-h">Flota</th><th class="cal-day-h cal-weekend">1</th><th class="cal-day-h cal-weekend">2</th><th class="cal-day-h">3</th><th class="cal-day-h">4</th><th class="cal-day-h">5</th><th class="cal-day-h">6</th><th class="cal-day-h">7</th><th class="cal-day-h cal-weekend">8</th><th class="cal-day-h cal-weekend">9</th><th class="cal-day-h">10</th><th class="cal-day-h">11</th><th class="cal-day-h">12</th><th class="cal-day-h">13</th><th class="cal-day-h">14</th><th class="cal-day-h cal-weekend">15</th><th class="cal-day-h cal-weekend">16</th><th class="cal-day-h">17</th><th class="cal-day-h">18</th><th class="cal-day-h">19</th><th class="cal-day-h">20</th><th class="cal-day-h">21</th><th class="cal-day-h cal-weekend">22</th><th class="cal-day-h cal-weekend">23</th><th class="cal-day-h">24</th><th class="cal-day-h">25</th><th class="cal-day-h">26</th><th class="cal-day-h">27</th><th class="cal-day-h">28</th><th class="cal-day-h cal-weekend">29</th><th class="cal-day-h cal-weekend">30</th><th class="cal-day-h">31</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="cal-veh"><span class="swatch" style="--swatch:#2B2B2F"></span><span>Peugeot 208</span></td>
+          <td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">25,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">25,00 €</span></td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">55,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">55,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">55,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">55,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">55,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">55,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">55,00 €</span></td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-libre"></td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">35,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">35,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">35,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">35,00 €</span></td>
+        </tr>
+        <tr>
+          <td class="cal-veh"><span class="swatch" style="--swatch:#F4F1E9"></span><span>Opel Corsa</span></td>
+          <td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-ocupado" style="--swatch:#F4F1E9;--swatch-text:#2B2B2F"><span class="cal-precio">45,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#F4F1E9;--swatch-text:#2B2B2F"><span class="cal-precio">45,00 €</span></td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-ocupado" style="--swatch:#F4F1E9;--swatch-text:#2B2B2F"><span class="cal-precio">30,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#F4F1E9;--swatch-text:#2B2B2F"><span class="cal-precio">30,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#F4F1E9;--swatch-text:#2B2B2F"><span class="cal-precio">30,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#F4F1E9;--swatch-text:#2B2B2F"><span class="cal-precio">30,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#F4F1E9;--swatch-text:#2B2B2F"><span class="cal-precio">30,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#F4F1E9;--swatch-text:#2B2B2F"><span class="cal-precio">27,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#F4F1E9;--swatch-text:#2B2B2F"><span class="cal-precio">27,00 €</span></td><td class="cal-cell cal-libre"></td><td class="cal-cell cal-libre"></td><td class="cal-cell cal-libre"></td><td class="cal-cell cal-libre"></td>
+        </tr>
+        <tr>
+          <td class="cal-veh"><span class="swatch" style="--swatch:#8B8D93"></span><span>Opel Combo</span></td>
+          <td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-ocupado" style="--swatch:#8B8D93;--swatch-text:#201F1C"><span class="cal-precio">43,20 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#8B8D93;--swatch-text:#201F1C"><span class="cal-precio">43,20 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#8B8D93;--swatch-text:#201F1C"><span class="cal-precio">43,20 €</span></td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-ocupado" style="--swatch:#8B8D93;--swatch-text:#201F1C"><span class="cal-precio">35,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#8B8D93;--swatch-text:#201F1C"><span class="cal-precio">35,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#8B8D93;--swatch-text:#201F1C"><span class="cal-precio">35,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#8B8D93;--swatch-text:#201F1C"><span class="cal-precio">35,00 €</span></td><td class="cal-cell cal-libre"></td><td class="cal-cell cal-libre"></td><td class="cal-cell cal-libre"></td><td class="cal-cell cal-libre"></td><td class="cal-cell cal-libre"></td>
+        </tr>
+        <tr>
+          <td class="cal-veh"><span class="swatch" style="--swatch:#F4F1E9"></span><span>Citroën C1</span></td>
+          <td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-ocupado" style="--swatch:#F4F1E9;--swatch-text:#2B2B2F"><span class="cal-precio">22,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#F4F1E9;--swatch-text:#2B2B2F"><span class="cal-precio">22,00 €</span></td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-ocupado" style="--swatch:#F4F1E9;--swatch-text:#2B2B2F"><span class="cal-precio">22,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#F4F1E9;--swatch-text:#2B2B2F"><span class="cal-precio">22,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#F4F1E9;--swatch-text:#2B2B2F"><span class="cal-precio">22,00 €</span></td><td class="cal-cell cal-libre"></td><td class="cal-cell cal-libre"></td>
+        </tr>
+        <tr>
+          <td class="cal-veh"><span class="swatch" style="--swatch:#B23A2E"></span><span>Opel Astra</span></td>
+          <td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-ocupado" style="--swatch:#B23A2E;--swatch-text:#F8ECE9"><span class="cal-precio">45,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#B23A2E;--swatch-text:#F8ECE9"><span class="cal-precio">45,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#B23A2E;--swatch-text:#F8ECE9"><span class="cal-precio">45,00 €</span></td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-ocupado" style="--swatch:#B23A2E;--swatch-text:#F8ECE9"><span class="cal-precio">55,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#B23A2E;--swatch-text:#F8ECE9"><span class="cal-precio">55,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#B23A2E;--swatch-text:#F8ECE9"><span class="cal-precio">55,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#B23A2E;--swatch-text:#F8ECE9"><span class="cal-precio">55,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#B23A2E;--swatch-text:#F8ECE9"><span class="cal-precio">55,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#B23A2E;--swatch-text:#F8ECE9"><span class="cal-precio">55,00 €</span></td>
+        </tr>
+        <tr>
+          <td class="cal-veh"><span class="swatch" style="--swatch:#2B2B2F"></span><span>Citroën C4 Picasso</span></td>
+          <td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">60,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">60,00 €</span></td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">60,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">60,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">60,00 €</span></td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-libre"></td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">60,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">60,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#2B2B2F;--swatch-text:#F4F1E9"><span class="cal-precio">60,00 €</span></td><td class="cal-cell cal-libre"></td>
+        </tr>
+        <tr>
+          <td class="cal-veh"><span class="swatch" style="--swatch:#EFBB2B"></span><span>Peugeot 208</span></td>
+          <td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-ocupado" style="--swatch:#EFBB2B;--swatch-text:#2B2B2F"><span class="cal-precio">45,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#EFBB2B;--swatch-text:#2B2B2F"><span class="cal-precio">45,00 €</span></td><td class="cal-cell cal-ocupado" style="--swatch:#EFBB2B;--swatch-text:#2B2B2F"><span class="cal-precio">45,00 €</span></td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-pasado">—</td><td class="cal-cell cal-libre"></td><td class="cal-cell cal-libre"></td><td class="cal-cell cal-libre"></td><td class="cal-cell cal-libre"></td><td class="cal-cell cal-libre"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
   <section class="section" id="ranking">
     <div class="section-head">
       <span class="eyebrow">Ranking por coche</span>
@@ -434,7 +551,7 @@
             <span>Peugeot 208 <em>negro</em></span>
           </td>
           <td class="rk-bar-cell">
-            <div class="rk-bar-track"><div class="rk-bar-fill" style="width:100.0%"></div></div>
+            <div class="rk-bar-track"><div class="rk-bar-fill veh-color" style="width:100.0%;--swatch:#2B2B2F"></div></div>
           </td>
           <td class="num">495,00 €</td>
           <td class="num">11</td>
@@ -446,7 +563,7 @@
             <span>Citroën C4 Picasso <em>negro</em></span>
           </td>
           <td class="rk-bar-cell">
-            <div class="rk-bar-track"><div class="rk-bar-fill" style="width:84.8%"></div></div>
+            <div class="rk-bar-track"><div class="rk-bar-fill veh-color" style="width:84.8%;--swatch:#2B2B2F"></div></div>
           </td>
           <td class="num">420,00 €</td>
           <td class="num">7</td>
@@ -458,7 +575,7 @@
             <span>Opel Astra <em>rojo</em></span>
           </td>
           <td class="rk-bar-cell">
-            <div class="rk-bar-track"><div class="rk-bar-fill" style="width:73.7%"></div></div>
+            <div class="rk-bar-track"><div class="rk-bar-fill veh-color" style="width:73.7%;--swatch:#B23A2E"></div></div>
           </td>
           <td class="num">365,00 €</td>
           <td class="num">7</td>
@@ -470,7 +587,7 @@
             <span>Opel Combo <em>gris</em></span>
           </td>
           <td class="rk-bar-cell">
-            <div class="rk-bar-track"><div class="rk-bar-fill" style="width:51.0%"></div></div>
+            <div class="rk-bar-track"><div class="rk-bar-fill veh-color" style="width:51.0%;--swatch:#8B8D93"></div></div>
           </td>
           <td class="num">252,60 €</td>
           <td class="num">6</td>
@@ -482,7 +599,7 @@
             <span>Opel Corsa <em>blanco</em></span>
           </td>
           <td class="rk-bar-cell">
-            <div class="rk-bar-track"><div class="rk-bar-fill" style="width:44.8%"></div></div>
+            <div class="rk-bar-track"><div class="rk-bar-fill veh-color" style="width:44.8%;--swatch:#F4F1E9"></div></div>
           </td>
           <td class="num">222,00 €</td>
           <td class="num">7</td>
@@ -494,7 +611,7 @@
             <span>Peugeot 208 <em>amarillo</em></span>
           </td>
           <td class="rk-bar-cell">
-            <div class="rk-bar-track"><div class="rk-bar-fill" style="width:18.6%"></div></div>
+            <div class="rk-bar-track"><div class="rk-bar-fill veh-color" style="width:18.6%;--swatch:#EFBB2B"></div></div>
           </td>
           <td class="num">91,89 €</td>
           <td class="num">2</td>
@@ -506,7 +623,7 @@
             <span>Citroën C1 <em>blanco</em></span>
           </td>
           <td class="rk-bar-cell">
-            <div class="rk-bar-track"><div class="rk-bar-fill" style="width:13.3%"></div></div>
+            <div class="rk-bar-track"><div class="rk-bar-fill veh-color" style="width:13.3%;--swatch:#F4F1E9"></div></div>
           </td>
           <td class="num">66,00 €</td>
           <td class="num">3</td>
@@ -525,7 +642,7 @@
     <div class="ranking-wrap">
       <table>
         <thead>
-          <tr><th>Embajador</th><th class="num">Contratos</th><th class="num">10% base</th><th class="num">60% margen</th><th class="num">Red 2,0039%<br>(nivel 2)</th><th class="num">Total</th></tr>
+          <tr><th>Embajador</th><th class="num">Contratos</th><th class="num">10% base</th><th class="num">60% margen</th><th class="num">Red 2,0039%<br>(nivel 2)</th><th class="num">Total</th><th></th></tr>
         </thead>
         <tbody>
         <tr>
@@ -535,6 +652,7 @@
           <td class="num">219,68 €</td>
           <td class="num">0,00 €</td>
           <td class="num"><strong>316,06 €</strong></td>
+          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill" style="width:100.0%"></div></div></td>
         </tr>
         <tr>
           <td>Oscar Paulino</td>
@@ -543,6 +661,7 @@
           <td class="num">0,00 €</td>
           <td class="num">25,01 €</td>
           <td class="num"><strong>30,47 €</strong></td>
+          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill" style="width:9.6%"></div></div></td>
         </tr>
         <tr>
           <td>Juan Villa</td>
@@ -551,6 +670,107 @@
           <td class="num">0,00 €</td>
           <td class="num">0,00 €</td>
           <td class="num"><strong>11,57 €</strong></td>
+          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill" style="width:3.7%"></div></div></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="metodo-pago">
+    <div class="section-head">
+      <span class="eyebrow">Método de pago</span>
+      <span class="section-note">Cómo cobra EKINYX sus alquileres</span>
+    </div>
+    <div class="ranking-wrap">
+      <table>
+        <thead>
+          <tr><th>Método</th><th class="num">Contratos</th><th></th><th class="num">%</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Bizum</td>
+          <td class="num">1</td>
+          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill" style="width:50.0%"></div></div></td>
+          <td class="num">50,0 %</td>
+        </tr>
+        <tr>
+          <td>Bizum · 699 367 682 · Titular: Oscar Paulino</td>
+          <td class="num">1</td>
+          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill" style="width:50.0%"></div></div></td>
+          <td class="num">50,0 %</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="precio-sugerido">
+    <div class="section-head">
+      <span class="eyebrow">Precio sugerido hoy</span>
+      <span class="section-note">Tarifa base × ocupación de los últimos 14 días × fin de semana, nunca por debajo del piso de coste (cuota financiación/30)</span>
+    </div>
+    <div class="ranking-wrap">
+      <table>
+        <thead>
+          <tr><th>Coche</th><th class="num">Tarifa base</th><th class="num">Ocupación 14 días</th><th class="num">Precio sugerido</th><th class="num">Piso de coste</th><th>Estado</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="rk-veh"><span class="swatch" style="--swatch:#2B2B2F"></span><span>Peugeot 208</span></td>
+          <td class="num">35,00 €</td>
+          <td class="num">42,9 %</td>
+          <td class="num"><strong>35,00 €</strong></td>
+          <td class="num">7,99 €</td>
+          <td><span class="pill st-done">Cubre y aporta</span></td>
+        </tr>
+        <tr>
+          <td class="rk-veh"><span class="swatch" style="--swatch:#F4F1E9"></span><span>Opel Corsa</span></td>
+          <td class="num">30,00 €</td>
+          <td class="num">57,1 %</td>
+          <td class="num"><strong>30,00 €</strong></td>
+          <td class="num">7,93 €</td>
+          <td><span class="pill st-done">Cubre y aporta</span></td>
+        </tr>
+        <tr>
+          <td class="rk-veh"><span class="swatch" style="--swatch:#8B8D93"></span><span>Opel Combo</span></td>
+          <td class="num">58,00 €</td>
+          <td class="num">50,0 %</td>
+          <td class="num"><strong>58,00 €</strong></td>
+          <td class="num">7,39 €</td>
+          <td><span class="pill st-done">Cubre y aporta</span></td>
+        </tr>
+        <tr>
+          <td class="rk-veh"><span class="swatch" style="--swatch:#F4F1E9"></span><span>Citroën C1</span></td>
+          <td class="num">22,00 €</td>
+          <td class="num">14,3 %</td>
+          <td class="num"><strong>20,00 €</strong></td>
+          <td class="num">4,70 €</td>
+          <td><span class="pill st-done">Cubre y aporta</span></td>
+        </tr>
+        <tr>
+          <td class="rk-veh"><span class="swatch" style="--swatch:#B23A2E"></span><span>Opel Astra</span></td>
+          <td class="num">36,00 €</td>
+          <td class="num">28,6 %</td>
+          <td class="num"><strong>32,00 €</strong></td>
+          <td class="num">5,48 €</td>
+          <td><span class="pill st-done">Cubre y aporta</span></td>
+        </tr>
+        <tr>
+          <td class="rk-veh"><span class="swatch" style="--swatch:#2B2B2F"></span><span>Citroën C4 Picasso</span></td>
+          <td class="num">35,00 €</td>
+          <td class="num">35,7 %</td>
+          <td class="num"><strong>32,00 €</strong></td>
+          <td class="num">—</td>
+          <td><span class="pill st-done">Cubre y aporta</span></td>
+        </tr>
+        <tr>
+          <td class="rk-veh"><span class="swatch" style="--swatch:#EFBB2B"></span><span>Peugeot 208</span></td>
+          <td class="num">35,00 €</td>
+          <td class="num">21,4 %</td>
+          <td class="num"><strong>32,00 €</strong></td>
+          <td class="num">6,09 €</td>
+          <td><span class="pill st-done">Cubre y aporta</span></td>
         </tr>
         </tbody>
       </table>
@@ -627,6 +847,13 @@
       <span class="eyebrow">Retorno de inversión</span>
       <span class="section-note">Inversión = precio pagado por el coche · Recuperado/Payback/ROI son estimados a partir de agosto, primer mes real de flota</span>
     </div>
+    <div class="hero-flota">
+      <div class="hero-flota-text">
+        <span class="hero-flota-label">Recuperado de la inversión de flota</span>
+        <span class="hero-flota-value">1,7 % de 70.160,00 € invertidos</span>
+      </div>
+      <div class="rk-bar-track hero-flota-track"><div class="rk-bar-fill" style="width:1.7%"></div></div>
+    </div>
     <div class="ranking-wrap">
       <table>
         <thead>
@@ -637,7 +864,7 @@
           <td class="rk-veh"><span class="swatch" style="--swatch:#2B2B2F"></span><span>Peugeot 208</span></td>
           <td class="num">13.090,00 €</td>
           <td class="num">311,39 €</td>
-          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill" style="width:2.4%"></div></div></td>
+          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill veh-color" style="width:2.4%;--swatch:#2B2B2F"></div></div></td>
           <td class="num">2,4 %</td>
           <td class="num">~41 meses</td>
           <td class="num">28,5 %</td>
@@ -646,7 +873,7 @@
           <td class="rk-veh"><span class="swatch" style="--swatch:#F4F1E9"></span><span>Opel Corsa</span></td>
           <td class="num">13.000,00 €</td>
           <td class="num">157,67 €</td>
-          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill" style="width:1.2%"></div></div></td>
+          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill veh-color" style="width:1.2%;--swatch:#F4F1E9"></div></div></td>
           <td class="num">1,2 %</td>
           <td class="num">~82 meses</td>
           <td class="num">14,6 %</td>
@@ -655,7 +882,7 @@
           <td class="rk-veh"><span class="swatch" style="--swatch:#8B8D93"></span><span>Opel Combo</span></td>
           <td class="num">12.090,00 €</td>
           <td class="num">173,75 €</td>
-          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill" style="width:1.4%"></div></div></td>
+          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill veh-color" style="width:1.4%;--swatch:#8B8D93"></div></div></td>
           <td class="num">1,4 %</td>
           <td class="num">~69 meses</td>
           <td class="num">17,2 %</td>
@@ -664,7 +891,7 @@
           <td class="rk-veh"><span class="swatch" style="--swatch:#F4F1E9"></span><span>Citroën C1</span></td>
           <td class="num">7.000,00 €</td>
           <td class="num">49,08 €</td>
-          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill" style="width:0.7%"></div></div></td>
+          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill veh-color" style="width:0.7%;--swatch:#F4F1E9"></div></div></td>
           <td class="num">0,7 %</td>
           <td class="num">~142 meses</td>
           <td class="num">8,4 %</td>
@@ -673,7 +900,7 @@
           <td class="rk-veh"><span class="swatch" style="--swatch:#B23A2E"></span><span>Opel Astra</span></td>
           <td class="num">9.090,00 €</td>
           <td class="num">220,61 €</td>
-          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill" style="width:2.4%"></div></div></td>
+          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill veh-color" style="width:2.4%;--swatch:#B23A2E"></div></div></td>
           <td class="num">2,4 %</td>
           <td class="num">~40 meses</td>
           <td class="num">29,1 %</td>
@@ -682,7 +909,7 @@
           <td class="rk-veh"><span class="swatch" style="--swatch:#2B2B2F"></span><span>Citroën C4 Picasso</span></td>
           <td class="num">5.800,00 €</td>
           <td class="num">236,02 €</td>
-          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill" style="width:4.1%"></div></div></td>
+          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill veh-color" style="width:4.1%;--swatch:#2B2B2F"></div></div></td>
           <td class="num">4,1 %</td>
           <td class="num">~24 meses</td>
           <td class="num">48,8 %</td>
@@ -691,7 +918,7 @@
           <td class="rk-veh"><span class="swatch" style="--swatch:#EFBB2B"></span><span>Peugeot 208</span></td>
           <td class="num">10.090,00 €</td>
           <td class="num">57,51 €</td>
-          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill" style="width:0.6%"></div></div></td>
+          <td class="rk-bar-cell"><div class="rk-bar-track"><div class="rk-bar-fill veh-color" style="width:0.6%;--swatch:#EFBB2B"></div></div></td>
           <td class="num">0,6 %</td>
           <td class="num">~174 meses</td>
           <td class="num">6,8 %</td>
@@ -807,7 +1034,7 @@
           <td class="num">0,58 €</td>
           <td class="num"><strong>17,20 €</strong></td>
           <td>Liubov Klochko</td>
-          <td><span class="pill st-done">Realizado</span></td>
+          <td><span class="pill st-done">Realizado</span> <span class="pill st-active">Bajo tarifa</span></td>
         </tr>
         <tr>
           <td class="num">2</td>
@@ -926,7 +1153,7 @@
           <td class="num">2,87 €</td>
           <td class="num"><strong>104,23 €</strong></td>
           <td>Autoalquiler · Juan Villa</td>
-          <td><span class="pill st-done">Realizado</span></td>
+          <td><span class="pill st-done">Realizado</span> <span class="pill st-active">Bajo tarifa</span></td>
         </tr>
         <tr>
           <td class="num">9</td>
@@ -994,7 +1221,7 @@
           <td class="num">2,87 €</td>
           <td class="num"><strong>69,52 €</strong></td>
           <td>Liubov Klochko</td>
-          <td><span class="pill st-done">Realizado</span></td>
+          <td><span class="pill st-done">Realizado</span> <span class="pill st-active">Bajo tarifa</span></td>
         </tr>
         <tr>
           <td class="num">14</td>
@@ -1045,7 +1272,7 @@
           <td class="num">0,49 €</td>
           <td class="num"><strong>21,81 €</strong></td>
           <td>Autoalquiler · Martha Noemi Tapia Flores</td>
-          <td><span class="pill st-done">Realizado</span></td>
+          <td><span class="pill st-done">Realizado</span> <span class="pill st-active">Bajo tarifa</span></td>
         </tr>
         <tr>
           <td class="num">17</td>
