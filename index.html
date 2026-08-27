@@ -708,49 +708,61 @@
   <section class="section" id="precio-sugerido">
     <div class="section-head">
       <span class="eyebrow">Precio sugerido hoy</span>
-      <span class="section-note">Tarifa base × ocupación de los últimos 14 días × fin de semana, nunca por debajo del piso de coste (cuota financiación ÷ días laborables del mes de vigencia, sin contar sábados). La vigencia es la confirmada por Óscar para este periodo — no se adelanta sola, solo avisa cuando se acerca el vencimiento</span>
+      <span class="section-note">Tarifa base × ocupación de los últimos 30 días × fin de semana, nunca por debajo del piso de coste (cuota financiación ÷ días laborables del mes de vigencia, sin contar sábados). Mín./máx./75% son precios reales cobrados en los últimos 30 días. La vigencia es la confirmada por Óscar para este periodo — no se adelanta sola, solo avisa cuando se acerca el vencimiento</span>
     </div>
     <div class="alerta-cuota">
-      <span class="alerta-title">⚠ Faltan 4 día(s) para que venza la vigencia de estas tarifas (01/08/2026 - 31/08/2026) — hay que confirmar y actualizar TARIFA_BASE con Óscar para el siguiente periodo.</span>
+      <span class="alerta-title">⚠ Faltan 4 día(s) para que venza la vigencia de estas tarifas (1 al 31 / 08 / 2026) — hay que confirmar y actualizar TARIFA_BASE con Óscar para el siguiente periodo.</span>
     </div>
     <div class="ranking-wrap">
       <table>
         <thead>
-          <tr><th>Coche</th><th class="num">Tarifa base</th><th class="num">Validez</th><th class="num">Ocupación 14 días</th><th class="num">Precio sugerido</th><th class="num">Piso de coste</th><th>Estado</th></tr>
+          <tr><th>Coche</th><th class="num">Tarifa base</th><th class="num">Validez</th><th class="num">Ocup. 30d</th><th class="num">Mín. 30d</th><th class="num">Máx. 30d</th><th class="num">75% máx.</th><th class="num">Precio sugerido</th><th class="num">Piso de coste</th><th>Estado</th></tr>
         </thead>
         <tbody>
         <tr>
           <td class="rk-veh"><span class="swatch" style="--swatch:#2B2B2F"></span><span>Peugeot 208</span></td>
           <td class="num">35,00 €</td>
-          <td class="num">01/08/2026 - 31/08/2026</td>
-          <td class="num">42,9 %</td>
-          <td class="num"><strong>35,00 €</strong></td>
+          <td class="num">1 al 31 / 08 / 2026</td>
+          <td class="num">30,0 %</td>
+          <td class="num">25,00 €</td>
+          <td class="num">55,00 €</td>
+          <td class="num">41,25 €</td>
+          <td class="num"><strong>32,00 €</strong></td>
           <td class="num">9,22 €</td>
           <td><span class="pill st-done">Cubre y aporta</span></td>
         </tr>
         <tr>
           <td class="rk-veh"><span class="swatch" style="--swatch:#F4F1E9"></span><span>Opel Corsa</span></td>
           <td class="num">30,00 €</td>
-          <td class="num">01/08/2026 - 31/08/2026</td>
-          <td class="num">57,1 %</td>
-          <td class="num"><strong>30,00 €</strong></td>
+          <td class="num">1 al 31 / 08 / 2026</td>
+          <td class="num">26,7 %</td>
+          <td class="num">27,00 €</td>
+          <td class="num">45,00 €</td>
+          <td class="num">33,75 €</td>
+          <td class="num"><strong>27,00 €</strong></td>
           <td class="num">9,15 €</td>
           <td><span class="pill st-done">Cubre y aporta</span></td>
         </tr>
         <tr>
           <td class="rk-veh"><span class="swatch" style="--swatch:#8B8D93"></span><span>Opel Combo</span></td>
           <td class="num">58,00 €</td>
-          <td class="num">01/08/2026 - 31/08/2026</td>
-          <td class="num">50,0 %</td>
-          <td class="num"><strong>58,00 €</strong></td>
+          <td class="num">1 al 31 / 08 / 2026</td>
+          <td class="num">23,3 %</td>
+          <td class="num">35,00 €</td>
+          <td class="num">43,20 €</td>
+          <td class="num">32,40 €</td>
+          <td class="num"><strong>52,00 €</strong></td>
           <td class="num">8,53 €</td>
           <td><span class="pill st-done">Cubre y aporta</span></td>
         </tr>
         <tr>
           <td class="rk-veh"><span class="swatch" style="--swatch:#F4F1E9"></span><span>Citroën C1</span></td>
           <td class="num">22,00 €</td>
-          <td class="num">01/08/2026 - 31/08/2026</td>
-          <td class="num">14,3 %</td>
+          <td class="num">1 al 31 / 08 / 2026</td>
+          <td class="num">6,7 %</td>
+          <td class="num">22,00 €</td>
+          <td class="num">22,00 €</td>
+          <td class="num">16,50 €</td>
           <td class="num"><strong>20,00 €</strong></td>
           <td class="num">5,42 €</td>
           <td><span class="pill st-done">Cubre y aporta</span></td>
@@ -758,8 +770,11 @@
         <tr>
           <td class="rk-veh"><span class="swatch" style="--swatch:#B23A2E"></span><span>Opel Astra</span></td>
           <td class="num">36,00 €</td>
-          <td class="num">01/08/2026 - 31/08/2026</td>
-          <td class="num">28,6 %</td>
+          <td class="num">1 al 31 / 08 / 2026</td>
+          <td class="num">13,3 %</td>
+          <td class="num">45,00 €</td>
+          <td class="num">55,00 €</td>
+          <td class="num">41,25 €</td>
           <td class="num"><strong>32,00 €</strong></td>
           <td class="num">6,32 €</td>
           <td><span class="pill st-done">Cubre y aporta</span></td>
@@ -767,8 +782,11 @@
         <tr>
           <td class="rk-veh"><span class="swatch" style="--swatch:#2B2B2F"></span><span>Citroën C4 Picasso</span></td>
           <td class="num">35,00 €</td>
-          <td class="num">01/08/2026 - 31/08/2026</td>
-          <td class="num">35,7 %</td>
+          <td class="num">1 al 31 / 08 / 2026</td>
+          <td class="num">16,7 %</td>
+          <td class="num">60,00 €</td>
+          <td class="num">60,00 €</td>
+          <td class="num">45,00 €</td>
           <td class="num"><strong>32,00 €</strong></td>
           <td class="num">—</td>
           <td><span class="pill st-done">Cubre y aporta</span></td>
@@ -776,8 +794,11 @@
         <tr>
           <td class="rk-veh"><span class="swatch" style="--swatch:#EFBB2B"></span><span>Peugeot 208</span></td>
           <td class="num">35,00 €</td>
-          <td class="num">01/08/2026 - 31/08/2026</td>
-          <td class="num">21,4 %</td>
+          <td class="num">1 al 31 / 08 / 2026</td>
+          <td class="num">10,0 %</td>
+          <td class="num">45,00 €</td>
+          <td class="num">45,00 €</td>
+          <td class="num">33,75 €</td>
           <td class="num"><strong>32,00 €</strong></td>
           <td class="num">7,03 €</td>
           <td><span class="pill st-done">Cubre y aporta</span></td>
