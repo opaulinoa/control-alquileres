@@ -37,7 +37,7 @@
 <script>
   function ekGateCheck() {
     var v = document.getElementById('ek-gate-input').value;
-    if (v === "6024") {
+    if (["6024", "4321"].indexOf(v) !== -1) {
       sessionStorage.setItem('ek_gate_ok', '1');
       document.getElementById('ek-gate').style.display = 'none';
       document.getElementById('ek-content').style.display = 'block';
